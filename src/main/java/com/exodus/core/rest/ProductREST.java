@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,7 @@ import com.exodus.core.dao.UsuarioDAO;
 import com.exodus.core.entities.Product;
 import com.exodus.core.entities.Usuario;
 
-@RestController
+@RestController //si queremos que nos devuelva una template html Paginas.LOGIN, tiene que ser Controller, NO REST
 @RequestMapping("/products")
 public class ProductREST {
 	
@@ -31,8 +31,8 @@ public class ProductREST {
 	@Autowired
 	private UsuarioDAO usuarioDAO;
 	
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	/*@Autowired
+	private BCryptPasswordEncoder passwordEncoder;*/
 	
 	@GetMapping
 	public ResponseEntity<List<Product>> getProduct(){
@@ -57,12 +57,12 @@ public class ProductREST {
 		return ResponseEntity.ok(newProduct);
 	}
 	
-	@PostMapping(path="/addUser")
+	/*@PostMapping(path="/addUser")
 	public ResponseEntity<Usuario> addUser(@RequestBody Usuario usuario){
 		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 		Usuario newUser=usuarioDAO.save(usuario);
 		return ResponseEntity.ok(newUser);
-	}
+	}*/
 	
 	@DeleteMapping(path="/{productId}")
 	public ResponseEntity<Void> deleteProduct(@PathVariable("productId") Long productId){
@@ -94,5 +94,6 @@ public class ProductREST {
 	public List<Product> getProductsPaginable(Pageable pageable){
 		return productDAO.findAll(pageable).getContent();
 	}
+	
 	
 }
