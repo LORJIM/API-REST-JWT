@@ -1,1 +1,27 @@
-server:  port: 8080spring:  jpa:    hibernate:      ddl-auto: update #esto permite que las tablas se creen de manera automatica a partir de la entidad    properties:      hibernate:        dialect: org.hibernate.dialect.MySQL5Dialect  datasource:    driver-class-name: com.mysql.cj.jdbc.Driver    url: jdbc:mysql://localhost:3306/products?useSSL=false&serverTimezone=UTC    username: root  #propiedades para hacer paginacion  data:    rest:      page-param-name: page #nombre del parametro donde indicaremos la pagina que queremos      limit-param-name: limit #no se pa que sirve si lo que tiene en cuenta son los params page y size, que estan limitados por los 2 atributos de debajo      default-page-size: 5 #numero de registros devueltos por cada pagina, page=0 nos devolvera los 5 primeros, page=1 los 5 siguientes y asi      max-page-size: 20 #numero maximo de resultados por pagina, este tampoco va
+---
+server:
+  port: 8080
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: "update"
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.MySQL5Dialect"
+  datasource:
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+    url: "jdbc:mysql://localhost:3306/products?useSSL=false&serverTimezone=UTC"
+    username: "root"
+  data:
+    rest:
+      page-param-name: "page"
+      limit-param-name: "limit"
+      default-page-size: 5
+      max-page-size: 20
+logging:
+  level:
+    com:
+      exodus:
+        core:
+          config: "TRACE"
+publicKey: "20986974754965949407505641874254470036531995237071498529275446572286945185189944211790108370913086481654630561605815459672472615760047549447403447673189130705096061991422000625489364364621116884161217347458100448961448604015097242358955045957549737934036260201324552904737640783695146833669884220380498044520306699780348647823937471715107310159887334355605676098514590422130000170443336438224769659112481180153194715361726376663398251549956980135810151008412091448077791208300033276414630967174509561154772091440190611258006051686433826554986229929435906914616268473362222611033777486285004303867555330762993568645197/65537"
