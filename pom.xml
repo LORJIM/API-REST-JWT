@@ -91,6 +91,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName><!-- el nombre del war que se genera, por defecto la etiqueta de arriba que tiene el nombre del proyecto -->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
