@@ -1,20 +1,24 @@
 package com.exodus.core;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 //import com.exodus.core.services.InstalacionService;
 
 @SpringBootApplication
-public class ProyectoApiRestApplication implements CommandLineRunner{
+public class ProyectoApiRestApplication extends SpringBootServletInitializer implements CommandLineRunner{
 
-	@Autowired
+//	@Autowired
 //	private InstalacionService instalacionService;
-
+	
+	@Override //Este metodo es del servlet initializer y es necesario para poder exportar el proyecto a JAR o WAR
+    public SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(ProyectoApiRestApplication.class);
+    }
     
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoApiRestApplication.class, args);
