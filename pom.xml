@@ -21,7 +21,8 @@
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-web</artifactId>
-		    <!--  <exclusions> solo para despliegue jboss
+		    <!--  solo para despliegue jboss
+		    <exclusions>
 		        <exclusion>
 		            <groupId>org.springframework.boot</groupId>
 		            <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -77,7 +78,8 @@
 		  <artifactId>jackson-dataformat-yaml</artifactId>
 		  <version>2.11.2</version>
 		</dependency>
-		<!--  <dependency> solo para despliegue jboss
+		<!--   solo para despliegue jboss
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>

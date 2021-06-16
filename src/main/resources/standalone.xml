@@ -39,7 +39,6 @@
         <extension module="org.wildfly.extension.undertow"/>
     </extensions>
     <system-properties>
-        <property name="deployment" value="1"/> <!--Esta variable indica a la app que nos encontramos en server JBOSS, reemplazar proximamente por una default-->
         <property name="publicKey" value="public"/> <!--aqui alojaremos la publicKey-->
     </system-properties>
     <management>
