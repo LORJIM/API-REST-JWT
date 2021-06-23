@@ -70,9 +70,12 @@ public class Usuario implements Serializable{
 		this.activo = activo;
 	}
 
-	public Usuario(String usuario, String password) {
+	public Usuario(String usuario, String password, byte role, boolean activo) {
+		super();
 		this.usuario = usuario;
 		this.password = password;
+		this.role = role;
+		this.activo = activo;
 	}
 
 	public Usuario() {

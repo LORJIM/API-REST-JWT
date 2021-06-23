@@ -101,5 +101,20 @@ public class Client {
 		this.reuseRefreshToken = reuseRefreshToken;
 	}
 
+	public Client( String clientId, String clientSecret, String scope, String authorizedGrantTypes,
+			String authorities, Integer accessTokenValidity, boolean reuseRefreshToken) {
+		super();
+		this.clientId = clientId;
+		this.clientSecret = clientSecret;
+		this.scope = scope;
+		this.authorizedGrantTypes = authorizedGrantTypes;
+		this.authorities = authorities;
+		this.accessTokenValidity = accessTokenValidity;
+		this.reuseRefreshToken = reuseRefreshToken;
+	}
+
+	public Client() {
+		super();
+	}
 	
 }

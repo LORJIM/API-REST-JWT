@@ -23,6 +23,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 
 import com.exodus.core.services.ClientService;
+import com.exodus.core.services.InstalacionService;
 import com.exodus.core.services.UsuarioService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -52,6 +53,9 @@ public class AuthorizationServerConfig  extends GlobalAuthenticationConfigurerAd
 	
 	@Autowired
 	private ClientService clientService;
+	
+	@Autowired
+	private InstalacionService instalacionService;
 	
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -97,6 +101,9 @@ public class AuthorizationServerConfig  extends GlobalAuthenticationConfigurerAd
 	
 	@Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
+		instalacionService.init_usuarios(); //crea usuario por defecto en caso de que no lo haya-exista en bbdd
+		instalacionService.init_clientes(); //crea cliente por defecto en caso de que no lo haya-exista en bbdd
+		
 		//EL USERDETAILSSERVICE SE ENCARGA DE VALIDAR LAS CREDENCIALES DE USUARIO
 		//le pasamos el USUARIOSERVICE que se encarga de recuperar los datos del usuario de BBDD (si es que existe)
 		//le pasamos tambien el password encoder que debe utilizar para encriptar la password introducida y compararla con la de BBDD
@@ -136,7 +143,7 @@ public class AuthorizationServerConfig  extends GlobalAuthenticationConfigurerAd
 	@Bean
 	public ProviderSettings providerSettings() {
 		ProviderSettings ps= new ProviderSettings();
-		ps=ps.issuer("http://localhost:8080");
+		ps=ps.issuer("http://localhost:8080"); //cuando autorizas te redirige a esta url + authorized + codigo de autorizacion
 		
 		//si quisieramos cambiar el endpoint por defecto para obtener las JWKs
 		//ps= ps.jwkSetEndpoint("/keys");
