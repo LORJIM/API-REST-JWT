@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -17,6 +18,9 @@ import com.exodus.core.entities.Client;
 public class ClientService{ //convierte la info de los clients de bbdd a registered clients para poderlos meter en inmemory (PROVISIONAL HASTA QUE HAYA CLIENTDETAILSSERVICE)
 	@Autowired
 	private ClientDAO clientDAO;
+	
+	@Autowired
+	private Environment env;
 	
 	private List<RegisteredClient> registeredClients=new ArrayList<RegisteredClient>();
 	
@@ -54,7 +58,10 @@ public class ClientService{ //convierte la info de los clients de bbdd a registe
 			String[] grantTypes=client.getAuthorizedGrantTypes().split(",");
 			for (String grantType : grantTypes) {
 				if(grantType.equals("authorization_code")) {
-					clientBuilder.authorizationGrantType(new AuthorizationGrantType(grantType)).redirectUri("http://localhost:8080/authorized");
+					//de la misma manera que en el login, en el redireccionamiento de authorize hay que poner un GET que exista, para que al front no devuelva error
+					//en spring security un get que nos sirve para estas cosas es la del jboss mismo, para no mezclar otros gets que si devuelven info
+					//la de serverURL no la utilizo porque con la / al final falla la peticion
+					clientBuilder.authorizationGrantType(new AuthorizationGrantType(grantType)).redirectUri(env.getProperty("serverIp"));
 				}else {
 					clientBuilder.authorizationGrantType(new AuthorizationGrantType(grantType));
 				}

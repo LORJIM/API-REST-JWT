@@ -1,0 +1,8 @@
+spring:
+    config:
+        activate:
+            on-profile: "prod"
+name: "prod-YAML"
+environment: "production"
+serverUrl: "http://127.0.0.1:8080/ProyectoAPI-REST"
+serverIp: "http://127.0.0.1:8080"
