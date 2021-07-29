@@ -93,13 +93,14 @@ public class AuthorizationServerConfig  extends GlobalAuthenticationConfigurerAd
 		http.cors().and() //cors() carga la configuracion de mas abajo
 		.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and() //ESTO PARA ENVIAR EL CSRF EN EL XSRF TOKEN (Response Cookie) y utilizar este en vez de JSESSIONID
 		//SI NUESTRA APP ES PRIVADA (NO SE ACCEDE POR BUSCADOR), ENTONCES PODEMOS PRESCINDIR DE CSRF Y DESHABILITARLO
-		.authorizeRequests(authorizeRequests ->
+        .authorizeRequests(authorizeRequests ->
 			authorizeRequests.antMatchers(resources).permitAll() //permitimos el acceso a ciertos recursos (como login y swagger) a cualquiera
 			.anyRequest().authenticated() //cualquier otra peticion-endpoint requiere autenticacion
 			.and()
 			//Adicionalmente, las peticiones a la API pasaran por este filtro, que valida el Access Token
 			.addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class)
-		).formLogin().defaultSuccessUrl("/login"); //redireccion despues de login con exito, tenemos que especificar algun GET que exista porque sino devolvera error al front aunque el login haya ido bien
+		)
+        .formLogin().defaultSuccessUrl("/login"); //redireccion despues de login con exito, tenemos que especificar algun GET que exista porque sino devolvera error al front aunque el login haya ido bien
 		//ya que el POST login y el redireccionamiento GET son interpretados como 1 sola peticion por el front (Axios-Vue)
 		//.loginPage("/loginCustom"); aqui estableceriamos la pagina/endpoint de login en caso de querer alguna custom en vez de la default
 		return http.build();
